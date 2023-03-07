@@ -1,0 +1,63 @@
+---
+title: "MarkdownLab"
+author: "Chloe"
+date: "2023-03-02"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, 
+                      warning = FALSE, 
+                      message = FALSE)
+```
+
+## _Introduction to Week 6b Markdown Lab_
+
+## Load Data 
+```{r}
+library(tidyverse)
+library(kableExtra)
+library(palmerpenguins)
+library(here)
+```
+ 
+ 
+ ## Inspect Data 
+```{r}
+glimpse(penguins)
+```
+ 
+ ## Make plot 
+```{r penguin, fig.asp=1.2, fig.align='center', fig.cap="My Week 6b Lab Figure", echo=FALSE, dev='png'}
+penguins %>% 
+  ggplot(aes(x = flipper_length_mm, 
+             y = body_mass_g, 
+             color = island, 
+             na.rm= FALSE)) + 
+  geom_step() + 
+  labs(x = "Flipper Length (mm)", 
+       y = "Body Mass (g)", 
+       fill = "Island") + 
+  theme_bw() + 
+  theme(axis.title = element_text(size = 10, 
+                                  color = "black"),
+        panel.background = element_rect("lightgreen"),
+        panel.grid = element_line(color = "grey"), 
+        plot.title = element_text(color = "black", size = 11, hjust = 0.5, face = "bold")) + 
+        ggtitle("Flipper Length and Body Mass Within Each Island of Penguins")
+
+```
+ 
+ 
+ ## Make Figure
+```{r peng, fig.cap= "Lab Kable Table", dev='pdf'}
+penguins %>% 
+  group_by(island) %>%
+  summarise(flippermean = mean(flipper_length_mm, na.rm = TRUE), 
+            bodymean = mean(body_mass_g, na.rm = TRUE)) %>%
+  kbl() %>% 
+  kable_material_dark() %>% 
+  row_spec(1, bold = T, color = "white", background = "skyblue") %>%
+  kable_styling(full_width = FALSE)
+```
+

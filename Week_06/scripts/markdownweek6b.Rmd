@@ -1,0 +1,38 @@
+---
+title: "Week6b"
+author: "Chloe"
+date: "2023-03-02"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, 
+                      warning = FALSE, 
+                      message = FALSE)
+```
+
+## Introduction to Markdown Pt. 2 
+
+## Load Data
+```{r penguin, out.width="50%"} 
+library(tidyverse)
+library(palmerpenguins)
+library(here)
+
+```
+
+## Inspect Data 
+```{r}
+glimpse(penguins)
+```
+
+
+## Make plot
+```{r penguin, out.width="50%"} 
+penguins(here) %>% 
+  ggplot(aes(x = bill_length_mm, 
+             y = bill_depth_mm, 
+             color = species))+ 
+  geom_point() + 
+  geom_smooth(method = "lm")
+```
