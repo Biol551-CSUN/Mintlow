@@ -34,7 +34,7 @@ glimpse(mtcars)
 
 
 ### Make Bad Plot 
-```{r cars, fig.align='center', fig.asp=1.5, fig.cap="car mpg", echo = FALSE, dev='png'}
+```{r cars, fig.align='center', fig.asp=1.5, fig.cap="car mpg", echo = FALSE}
 
 mtcars %>% 
   ggplot(aes(x = mpg, 
@@ -55,13 +55,9 @@ mtcars %>%
 ```
 
 
-## Good Plot
-```{r mtcars, fig.align='center', fig.asp=1.5, fig.cap="Comparison of mph in various Cars from 1970s study", echo = FALSE, dev='png'}
-
-```
 Good Plot
 
-```{r mtcars, fig.align='center', fig.asp=1.5, fig.cap="Comparison of mph in various Cars from 1970s Study", echo = FALSE, dev='png}
+```{r mtcars}
 ggplot(mtcars, aes(x = hp, 
                    y = mpg, 
                    label = rownames(mtcars))) + 
