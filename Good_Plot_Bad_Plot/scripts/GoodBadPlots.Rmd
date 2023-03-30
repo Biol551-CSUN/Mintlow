@@ -53,36 +53,26 @@ mtcars %>%
   ggtitle("cars mpg and hp")
 
 ```
-#bad plot #2
-```{r,fig.align='center', fig.asp=1.5, fig.cap="Comparison of mph in various Cars from 1970s study", echo = FALSE}
-ggplot(mtcars, aes(x = hp, 
-                   y = mpg,
-                   label = rownames(mtcars))) + 
-  geom_text_repel() +
-  geom_density2d_filled(color = 'violet')
-```
 
 
 ## Good Plot
 ```{r mtcars, fig.align='center', fig.asp=1.5, fig.cap="Comparison of mph in various Cars from 1970s study", echo = FALSE, dev='png'}
 
-car_data<-mtcars
-
-  ggplot(car_data, 
-         mapping = aes(x = hp, 
-                       y = mpg, 
-                       label = rownames(mtcars))) + 
-  geom_text_repel() + 
-  geom(color = 'violet')
-
-
 ```
-```{r}
+Good Plot
+
+```{r mtcars, fig.align='center', fig.asp=1.5, fig.cap="Comparison of mph in various Cars from 1970s Study", echo = FALSE, dev='png}
 ggplot(mtcars, aes(x = hp, 
                    y = mpg, 
                    label = rownames(mtcars))) + 
-  geom_text_repel() + #repels text label & separates (easier to read than geom_text)
-  geom_point(color = 'blue')
+  labs(x = "Horsepower", 
+       y = "Miles Per Gallon") + 
+  theme_bw() + 
+  geom_text_repel() + #repels to make text easy to read
+  geom_count(color = 'violet') + 
+  ggtitle("Comparison of Horsepower and MPG in Cars")
+ggsave(here("Good_Plot_Bad_Plot", "output","goodplot.png"))
+
 ```
 
 
