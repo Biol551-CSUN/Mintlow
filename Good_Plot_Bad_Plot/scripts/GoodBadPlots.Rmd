@@ -1,0 +1,88 @@
+---
+title: "Good/Bad Plot"
+author: "Chloe"
+date: "2023-03-27"
+output: html_document
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo= TRUE, 
+                      warning = FALSE, 
+                      message = FALSE)
+```
+
+
+## Introduction 
+
+*_My Good and Bad Plot on Car Data_*
+
+### Load Data
+```{r}
+library(tidyverse)
+library(here)
+library(patchwork)
+library(dplyr)
+library(reshape2)
+library(beyonce)
+```
+
+### Inspect Data 
+```{r}
+View(mtcars)
+glimpse(mtcars)
+
+```
+
+
+### Make Bad Plot 
+```{r cars, fig.align='center', fig.asp=1.5, fig.cap="car mpg", echo = FALSE, dev='png'}
+
+mtcars %>% 
+  ggplot(aes(x = mpg, 
+             y = hp,
+             fill = cyl,
+             na.rm=FALSE, 
+             label = rownames(mtcars))) +
+  theme_bw() +
+  theme(plot.title = element_text(hjust = 0.5, size = 12),
+        panel.grid = element_line(color = "pink"), 
+        panel.background = element_rect(fill = "violet"), 
+        legend.key = element_rect(color = "beige")) +
+  geom_bar(width=0.5, stat="identity", color = "green") + 
+  coord_polar("y", start=0) +
+  geom_text_repel() + 
+  ggtitle("cars mpg and hp")
+
+```
+#bad plot #2
+```{r,fig.align='center', fig.asp=1.5, fig.cap="Comparison of mph in various Cars from 1970s study", echo = FALSE}
+ggplot(mtcars, aes(x = hp, 
+                   y = mpg,
+                   label = rownames(mtcars))) + 
+  geom_text_repel() +
+  geom_density2d_filled(color = 'violet')
+```
+
+
+## Good Plot
+```{r mtcars, fig.align='center', fig.asp=1.5, fig.cap="Comparison of mph in various Cars from 1970s study", echo = FALSE, dev='png'}
+
+car_data<-mtcars
+
+  ggplot(car_data, 
+         mapping = aes(x = hp, 
+                       y = mpg, 
+                       label = rownames(mtcars))) + 
+  geom_text_repel() + 
+  geom(color = 'violet')
+
+
+```
+```{r}
+ggplot(mtcars, aes(x = hp, 
+                   y = mpg, 
+                   label = rownames(mtcars))) + 
+  geom_text_repel() + #repels text label & separates (easier to read than geom_text)
+  geom_point(color = 'blue')
+```
+
+
