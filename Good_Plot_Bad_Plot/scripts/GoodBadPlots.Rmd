@@ -1,7 +1,7 @@
 ---
-title: "Good/Bad Plot"
+title: "Good and Bad Plot"
 author: "Chloe"
-date: "2023-03-27"
+date: "2023-03-30"
 output: html_document
 ---
 ```{r setup, include=FALSE}
@@ -13,29 +13,36 @@ knitr::opts_chunk$set(echo= TRUE,
 
 ## Introduction 
 
-*_My Good and Bad Plot on Car Data_*
+Today I will make a good and bad plot, by using a data set from the 1974 *Motor Trend* magazine publication on motor trend car road tests. 32 cars were studied, and I used 3 categories of automobile design.
 
 ### Load Data
 ```{r}
 library(tidyverse)
 library(here)
-library(patchwork)
 library(dplyr)
-library(reshape2)
-library(beyonce)
+library(ggrepel) #repels data for easier viewing
+library(reshape2) #used for circular data graph in the bad plot
 ```
 
 ### Inspect Data 
 ```{r}
-View(mtcars)
+View(mtcars) #viewed car data
 glimpse(mtcars)
-
 ```
+ 
 
+### Make a Bad Plot 
 
-### Make Bad Plot 
-```{r cars, fig.align='center', fig.asp=1.5, fig.cap="car mpg", echo = FALSE}
+Shown below is my bad plot with derived data from the cars data set. This plot is considered to be "bad" due to the following reasons: 
 
+* ambiguous & useless legend that shows information for a separate data category
+* pie graph (automatic no-no) 
+* non-specific axis labels & plot title
+* overwhelming colors used within the plot
+* cluttered data labels that may also be overshadowed by plot colors
+* unclear data points
+
+```{r}
 mtcars %>% 
   ggplot(aes(x = mpg, 
              y = hp,
@@ -48,14 +55,24 @@ mtcars %>%
         panel.background = element_rect(fill = "violet"), 
         legend.key = element_rect(color = "beige")) +
   geom_bar(width=0.5, stat="identity", color = "green") + 
-  coord_polar("y", start=0) +
-  geom_text_repel() + 
-  ggtitle("cars mpg and hp")
+  coord_polar("y", start=0) + #combined coord_polar w/ geom_bar to create basic pie graph
+  geom_text_repel() + #separated data
+  ggtitle("cars mpg and hp") 
+
+#to save the graph
+ggsave(here("Good_Plot_Bad_Plot", "output", "badplot1.png"))
 
 ```
 
 
-Good Plot
+### Make a Good Plot
+
+Below is my attempt at creating a good plot using the same car data. What makes this a good plot is: 
+
+* non-distracting color scheme
+* a more specific plot title and axis labels
+* the plot is easier to read than the first plot, although the data points could have been smaller and less crowded 
+* more of a useful graph for understanding the data
 
 ```{r mtcars}
 ggplot(mtcars, aes(x = hp, 
@@ -66,7 +83,10 @@ ggplot(mtcars, aes(x = hp,
   theme_bw() + 
   geom_text_repel() + #repels to make text easy to read
   geom_count(color = 'violet') + 
-  ggtitle("Comparison of Horsepower and MPG in Cars")
+  ggtitle("Comparison of Horsepower and MPG in Cars from 1974") + 
+  theme(plot.title = element_text(hjust = 0.5))
+
+#save good plot 
 ggsave(here("Good_Plot_Bad_Plot", "output","goodplot.png"))
 
 ```
