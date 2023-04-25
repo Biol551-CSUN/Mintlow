@@ -1,0 +1,48 @@
+---
+title: "Week11HW"
+author: "Chloe"
+date: "2023-04-20"
+output: html_document
+---
+
+```{r, week11blab setup, include=FALSE}
+## Load Libraries 
+library(here)
+library(tidyverse)
+library(janitor)
+
+#low to mid to high tide 
+#make axes a factor
+
+## Retrieve Data 
+intertiddata <- read.csv('https://raw.githubusercontent.com/Biol551-CSUN/Spring-2023/main/Week_11/data/intertidaldata.csv')
+
+interlatdata <- read.csv('https://raw.githubusercontent.com/Biol551-CSUN/Spring-2023/main/Week_11/data/intertidaldata_latitude.csv')
+
+## Make Plot
+intertiddata %>% 
+  str_replace_all(pattern ="\\.", replacement =" ") %>%
+  filter(!is.na(species)) %>%
+  str_trim(intertiddata)%>%
+  group_by(Quadrat, Site)%>%
+  summarise(barerock = sum(Bare.Rock) %>% 
+  mutate(clean_intertidal_data = factor(intertiddata))
+
+clean_intertidal_data<-intertiddata %>% 
+  str_replace_all(pattern ="\\.", replacement =" ") %>%
+  filter(!is.na(species)) %>%
+  str_trim(clean_intertidal_data)%>%
+  group_by(Quadrat, Site)%>%
+  summarise(barerock = sum(Bare.Rock) %>% 
+  mutate(clean_intertidal_data = factor(clean_intertidal_data)) %>% #makes a factor 
+    
+    
+    ggplot(aes(x = Quadrat, y = Site, 
+               color = fct_reorder2(Quadrat, Site, Bare.Rock)))+
+    geom_bar()
+#clean_intertidal_data 
+   ggplot(aes(x = Quadrat, y = Site, 
+               color = fct_reorder2(Quadrat, Site, Bare.Rock)))+
+     geom_bar()
+  #ggplot(aes(x = Site, y = Latitude))
+```
